@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-10">
+      <div class="card" style="padding-bottom:30px">
+        <div class="card-header">
+          <h2>Student Details</h2>
+        </div>
+        <div class="card-body" style="padding-top:0px; padding-bottom:0px;">
+          <table class="table table-hover">
+            <tbody>
+              <tr>
+                <th style="border-top:0px">Student Admin Number</th>
+                <td style="border-top:0px">{{student.student_admno}}</td>
+              </tr>
+              <tr>
+                <th>Student Gender</th>
+                <td>{{student.student_gender}}</td>
+              </tr>
+              <tr>
+                <th>Class Code</th>
+                <td>{{student.student_classcode}}</td>
+              </tr>
+              <tr>
+                <th>Full Namer</th>
+                <td>{{student.student_fullname}}</td>
+              </tr>
+              <tr>
+                <th>First Name</th>
+                <td>{{student.student_firstname}}</td>
+              </tr>
+              <tr>
+                <th>Last Name</th>
+                <td>{{student.student_lastname}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container" style="padding-top:30px">
+  <div class="row justify-content-center">
+    <div class="col-10">
+      <div class="card">
+        <div class="card-header">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-6">
+                <h4>Student's Sports Participation</h4>
+              </div>
+              <div class="col-6 text-right">
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body" style="padding-top:0px; padding-bottom:0px;">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col" style="border-top:0px">Sport</th>
+                <th scope="col" style="border-top:0px">Achievement</th>
+                <th scope="col" style="border-top:0px">Year Participated</th>
+                <th scope="col" style="border-top:0px"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for sport in student.sport_set.all %}
+                <tr>
+                  <td>{{sport.sport_played}}</td>
+                  <td>{{sport.achievement}}</td>
+                  <td>{{sport.year_participated}}</td>
+                  <td>
+                    <form class="" action="{% url 'students:sport_delete' student.student_admno sport.id %}" method="post">
+                      {% csrf_token %}
+                      <input type="hidden" name="sport_id" value="{{ sport.id }}"/>
+                      <button type="submit" name="btn btn-danger btn-xs">
+                        <span>Delete</span>
+                      </button>
+                      </form>
+                    </td>
+                  </tr>
+              {% endfor %}
+                  <tr>
+                    <td class="text-center" colspan='4'><a class="btn btn-success" href="{% url 'students:add_sport' student_admno=student.student_admno %}">Add Sport</a></td
+                  </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+{% endblock %}

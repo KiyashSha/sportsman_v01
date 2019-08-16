@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container" style="padding-top:50px">
+    <div class="row justify-content-center">
+      <div class="col-6-sm" style="width:30rem;">
+        <div class="card">
+          <h5 class="card-header">Select File</h5>
+          <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <input type="file" name="myfile">
+              <button type="submit" name="submit_file">Upload</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% if uploaded_file_url %}
+  <div class="container" style="padding-top:30px">
+    <div class="row justify-content-center">
+      <div class="col-6-sm" style="width:30rem;">
+        <div class="card">
+          <h5 class="card-header">File Uploaded</h5>
+          <div class="card-body">
+            <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+            <form method="post">
+              {% csrf_token %}
+              <button type="submit" name="next" value="submit">Next</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if msg %}
+  <div class="container" style="padding-top:30px">
+    <div class="row justify-content-center">
+      <div class="col-6-sm" style="width:30rem;">
+        <div class="card">
+          <h5 class="card-header">Student Bulk Upload</h5>
+          <div class="card-body">
+            <p>{{ msg }}</p>
+            <form method="post">
+              {% csrf_token %}
+              <button type="submit" name="execute" value="submit">Execute</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if msg_1 %}
+  <div class="container" style="padding-top:30px">
+    <div class="row justify-content-center">
+      <div class="col-6-sm" style="width:30rem;">
+        <div class="card">
+          <h5 class="card-header">Upload Complete</h5>
+          <div class="card-body">
+            <p>{{ msg_1 }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="container" style="padding-top:5%; padding-bottom:20px">
+    <div class="row justify-content-center">
+      <div class="col-6-sm">
+        <a class="btn" href="#" role="button" style="border-color:#5b9bd5a6; background-color:#5b9bd5a6; color:#650320">Return to Home</a>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}
