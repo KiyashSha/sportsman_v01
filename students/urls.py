@@ -9,7 +9,6 @@ urlpatterns = [
     path('details/<int:student_admno>/', views.student_details, name="student_details"),
     path('upload/', views.bulk_upload, name="bulk_upload"),
     path('add/',views.StudentCreate.as_view(), name="student_add"),
-    path('update/<int:pk>/',views.StudentUpdate.as_view(), name="student_update"),
     path('details/<int:student_admno>/add_sport/',views.add_sport, name="add_sport"),
     path('<int:student_admno>/delete/<int:sport_id>',views.delete_song, name="sport_delete")
 ]
