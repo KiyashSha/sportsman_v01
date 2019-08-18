@@ -34,13 +34,14 @@
       <div class="container-fluid" style="padding-left:30px;">
         <div class="row">
           <div class="col-2-md col-12-sm" style="padding-right:20px;">
-            {% load static %}
+            {% load staticfiles %}
             <img src="{% static 'img/alexhigh_logo_blue_transparent.png' %}" alt="" style="height: 170px">
           </div>
           <div class="col-10-md col-12-sm" style="color:#5b9bd5;">
             <h1 class="display-4">Alexandra High School</h1>
             <p class="lead">Summa Diligentia Laboro</p>
             <h2>S<b>tudent</b> P<b>articipation and</b> A<b>chievement</b> D<b>atabase</b></h2>
+            <a href="{% url 'students:logout_user' %}">Logout</a>
           </div>
         </div>
       </div>

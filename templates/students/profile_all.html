@@ -20,6 +20,35 @@
       {% endfor %}
     </tbody>
   </table>
+
+  {% if students.has_other_pages %}
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="pagination">
+        {% if students.has_previous %}
+          <a class="btn btn-outline-secondary md-4" href="?page=1{% if query %}&q={{query}}{% endif %}">First</a>
+          <a class="btn btn-outline-secondary md-4" href="?page={{ students.previous_page_number }}{% if query %}&q={{query}}{% endif %}">Previous</a>
+        {% endif %}
+
+        {% for num in students.paginator.page_range %}
+          {% if students.number == num %}
+            <a class="btn btn-secondary md-4" href="?page={{ num }}{% if query %}&q={{query}}{% endif %}">{{ num }}</a>
+          {% elif num > students.number|add:'-3' and num < students.number|add:'3' %}
+            <a class="btn btn-outline-secondary md-4" href="?page={{ num }}{% if query %}&q={{query}}{% endif %}">{{ num }}</a>
+          {% endif %}
+        {% endfor %}
+
+        {% if students.has_next %}
+          <a class="btn btn-outline-secondary md-4" href="?page={{ students.next_page_number }}{% if query %}&q={{query}}{% endif %}">Next</a>
+          <a class="btn btn-outline-secondary md-4" href="?page={{ students.paginator.num_pages }}{% if query %}&q={{query}}{% endif %}">Last</a>
+        {% endif %}
+      </div>
+
+    </div>
+
+  </div>
+
+{% endif %}
 </div>
 
 {% endblock %}
