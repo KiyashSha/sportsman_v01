@@ -1,27 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
+<div class="container" style="padding-top:30px">
   <div class="class="row justify-content-center">
     <div class="col-6-md" style="">
       <div class="card">
         <div class="card-header">
           Update Student Details
         </div>
-        <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+        <form class="form-horizontal" action="" method="post" enctype="multipart/form-data" style="padding-top:20px; margin-left:20px; margin-right:20px">
           {% csrf_token %}
           {% for field in form %}
             <div class="form-group">
-              <div class="col-sm-offset-2 col-sm-10">
+              <div class="col-sm-offset-2 col-sm-12">
                   <span class="text-danger small">{{ field.errors }}</span>
-                </div>
-                <label class="control-lable col-sm-10">{{ field.label_tag  }}</label>
-              <div class="col-sm-10">{{ field }}</div>
+              </div>
+              <label class="control-lable col-sm-12">{{ field.label_tag }}</label>
+              <div class="col-sm-12">{{ field }}</div>
             </div>
             {% endfor %}
             <div class="form-group">
-              <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-success" >Submit</button>
+              <div class="col-sm-offset-2 col-sm-12 text-center" style="padding-top:20px">
+                <button type="submit" class="btn btn-success" >Save Changes</button>
               </div>
             </div>
         </form>

@@ -5,6 +5,8 @@ class Student(models.Model):
     student_admno = models.IntegerField(primary_key=True, verbose_name='Admin Number')
     student_gender = models.CharField(max_length=10, verbose_name='Gender')
     student_classcode = models.CharField(max_length=10, verbose_name='Class Code')
+    student_grade = models.IntegerField(null=True,verbose_name='Grade')
+    student_class_designation = models.CharField(null=True,max_length=1,verbose_name='Class Designation')
     student_fullname = models.CharField(max_length=200, verbose_name='Full Name')
     student_firstname = models.CharField(max_length=50, verbose_name='First Name')
     student_middlename = models.CharField(max_length=50, blank=True, verbose_name='Middle Name')

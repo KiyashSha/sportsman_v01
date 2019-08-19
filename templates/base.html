@@ -2,7 +2,6 @@
 <html lang="en" dir="ltr">
   <head>
     <style media="screen">
-
       h2 b {
         font-size: 60%;
       }
@@ -17,20 +16,23 @@
       #id_student_fullname,
       #id_student_firstname,
       #id_student_middlename,
-      #id_student_lastname {
+      #id_student_lastname,
+      #id_sport_played,
+      #id_achievement,
+      #id_year_participated{
         width: -webkit-fill-available;
       }
 
     </style>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <title></title>
   </head>
   <body>
-    <div class="jumbotron jumbotron-fluid" style="margin-bottom: 0px; background-color:#650320">
+    <div class="jumbotron jumbotron-fluid" style="padding: 4rem 2rem 1.2rem; margin-bottom: 0px; background-color:#650320">
       <div class="container-fluid" style="padding-left:30px;">
         <div class="row">
           <div class="col-2-md col-12-sm" style="padding-right:20px;">
@@ -41,12 +43,55 @@
             <h1 class="display-4">Alexandra High School</h1>
             <p class="lead">Summa Diligentia Laboro</p>
             <h2>S<b>tudent</b> P<b>articipation and</b> A<b>chievement</b> D<b>atabase</b></h2>
-            <a href="{% url 'students:logout_user' %}">Logout</a>
+            <div class="container-fluid" style="padding-left: 0px; padding-right:0px">
+              <div class="row" style="padding-top:50px;">
+                <div class="col-6">
+                  Logged in as: {{ username }}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            {% if "profile_all.html" in template %}
+              <a class="nav-link" href="{% url 'students:create_student' %}">Add Student</a>
+            {% elif "student_create_form.html" in template %}
+              <a class="nav-link" href="{% url 'students:students_all' %}">Home</a>
+            {% elif "profile_details.html" in template %}
+              <a class="nav-link" href="{% url 'students:students_all' %}">Home</a>
+            {% elif "students/sport_form.html" in template %}
+              <a class="nav-link" href="{% url 'students:students_all' %}">Home</a>
+            {% elif "student_update_form.html" in template %}
+              <a class="nav-link" href="{% url 'students:students_all' %}">Home</a>
+            {% endif %}
+          </li>
+          {% if "students/sport_form.html" in template %}
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:history.back()">Back to Details</a>
+          </li>
+          {% endif %}
+          {% if "student_update_form.html" in template %}
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:history.back()">Back to Details</a>
+          </li>
+          {% endif %}
+        </ul>
+        <span class="navbar-text">
+          {% if username %}
+            <a href="{% url 'students:logout_user' %}">Logout</a>
+          {% endif %}
+        </span>
+      </div>
+    </nav>
     {% block content %}
     {% endblock %}
   </body>

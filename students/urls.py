@@ -11,7 +11,7 @@ urlpatterns = [
     path('details/<int:student_admno>/', views.student_details, name="student_details"),
     path('add/',views.create_student, name="create_student"),
     path('upload/', views.bulk_upload, name="bulk_upload"),
-    path('update/<int:student_admno>/',views.update_student, name="student_update"),
+    path('details/<int:student_admno>/update/',views.update_student, name="student_update"),
     path('details/<int:student_admno>/add_sport/',views.add_sport, name="add_sport"),
     path('<int:student_admno>/delete/<int:sport_id>',views.delete_sport, name="sport_delete")
 ]
