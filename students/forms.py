@@ -26,6 +26,5 @@ class StudentForm(forms.ModelForm):
             'student_classcode',
             'student_fullname',
             'student_firstname',
-            'student_middlename',
             'student_lastname'
             ]

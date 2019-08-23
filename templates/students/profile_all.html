@@ -7,7 +7,8 @@
       <tr>
         <th scope="col">Admin No.</th>
         <th scope="col">Class Code</th>
-        <th scope="col">Full Name</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
       </tr>
     </thead>
     <tbody>
@@ -15,7 +16,8 @@
         <tr>
           <td><a class="link-text" href="{% url 'students:student_details' student_admno=student.student_admno %}">{{student.student_admno}}</a></td>
           <td><a class="link-text" href="{% url 'students:student_details' student_admno=student.student_admno %}">{{student.student_classcode}}</a></td>
-          <td><a class="link-text" href="{% url 'students:student_details' student_admno=student.student_admno %}">{{student.student_fullname}}</a></td>
+          <td><a class="link-text" href="{% url 'students:student_details' student_admno=student.student_admno %}">{{student.student_firstname}}</a></td>
+          <td><a class="link-text" href="{% url 'students:student_details' student_admno=student.student_admno %}">{{student.student_lastname}}</a></td>
         </tr>
       {% endfor %}
     </tbody>

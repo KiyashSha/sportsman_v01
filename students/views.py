@@ -7,6 +7,7 @@ from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout
+from django.db.models import Q
 import os
 import xlrd
 
@@ -15,8 +16,9 @@ from .forms import SportForm, UserForm, StudentForm
 
 def login_user(request):
     if request.user.is_authenticated:
-        return redirect('students:students_all')
+        return HttpResponseRedirect(('/student/students-all/8A'))
     else:
+        template = 'students/login_form.html'
         if request.method == "POST":
             username = request.POST['username']
             password = request.POST['password']
@@ -24,24 +26,24 @@ def login_user(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return redirect('students:students_all')
+                    return HttpResponseRedirect(('/student/students-all/8A'))
                 else:
-                    return render(request, 'students/login_form.html', {'error_message': 'Your account has been disabled'})
+                    return render(request, template, {'error_message': 'Your account has been disabled'})
             else:
-                return render(request, 'students/login_form.html', {'error_message': 'Invalid login'})
-        return render(request, 'students/login_form.html')
+                return render(request, template, {'error_message': 'Invalid login'})
+        return render(request, template)
 
-def students_all(request):
+def students_all(request, student_classcode):
     if not request.user.is_authenticated:
         return render(request, 'students/login_form.html')
     else:
         template = 'students/profile_all.html'
-
+        classcode = student_classcode
         username = request.user.username
-        students_all = Student.objects.all().order_by('student_grade','student_class_designation')
+        students_all = Student.objects.filter(student_classcode=classcode)
 
         page = request.GET.get('page')
-        paginator = Paginator(students_all,30)
+        paginator = Paginator(students_all,50)
 
         try:
             students = paginator.page(page)
@@ -155,15 +157,13 @@ def bulk_upload(request):
                     class_designation = classcode[2]
 
                 fullname = row[3]
-                first, *middle, last = fullname.split()
+                first = fullname.split()[1:]
+                last = fullname.split()[0]
 
-                middle_name = ""
-                if not middle:
-                    middle_name = ""
-                else:
-                    for n in middle:
-                        middle_name = middle_name + n + " "
-                    middle_name = middle_name[:-1]
+                first_names = ""
+                for n in first:
+                    first_names = first_names + n + " "
+                first_names = first_names[:-1]
 
                 objects.append(
                     Student(
@@ -173,8 +173,7 @@ def bulk_upload(request):
                         student_grade = grade,
                         student_class_designation = class_designation,
                         student_fullname = fullname,
-                        student_firstname = first,
-                        student_middlename = middle_name,
+                        student_firstname = first_names,
                         student_lastname = last
                         )
                     )
@@ -255,3 +254,23 @@ def logout_user(request):
     logout(request)
 
     return redirect('login_user')
+
+def student_search(request):
+    template = 'students/profile_all.html'
+    username = request.user.username
+    term = request.GET.get('q')
+    q_objects = (Q(student_admno__icontains=term) | Q(student_fullname__icontains=term))
+    results = Student.objects.filter(q_objects)
+
+    page = request.GET.get('page')
+    paginator = Paginator(results,50)
+
+    try:
+        students = paginator.page(page)
+    except PageNotAnInteger:
+        students = paginator.page(1)
+    except EmptyPage:
+        students = paginator.page(paginator.num_pages)
+
+
+    return render(request, 'students/profile_all.html',{'students': students,'query': term, 'username': username, 'template': template})

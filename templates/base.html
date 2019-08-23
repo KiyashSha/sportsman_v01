@@ -45,8 +45,13 @@
             <h2>S<b>tudent</b> P<b>articipation and</b> A<b>chievement</b> D<b>atabase</b></h2>
             <div class="container-fluid" style="padding-left: 0px; padding-right:0px">
               <div class="row" style="padding-top:50px;">
-                <div class="col-6">
+                <div class="col-10">
                   Logged in as: {{ username }}
+                </div>
+                <div class="col-2">
+                  {% if username %}
+                    <a href="{% url 'students:logout_user' %}">Logout</a>
+                  {% endif %}
                 </div>
               </div>
             </div>
@@ -54,26 +59,80 @@
         </div>
       </div>
     </div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            {% if "profile_all.html" in template %}
-              <a class="nav-link" href="{% url 'students:create_student' %}">Add Student</a>
-            {% elif "student_create_form.html" in template %}
-              <a class="nav-link" href="{% url 'students:students_all' %}">Home</a>
-            {% elif "profile_details.html" in template %}
-              <a class="nav-link" href="{% url 'students:students_all' %}">Home</a>
-            {% elif "students/sport_form.html" in template %}
-              <a class="nav-link" href="{% url 'students:students_all' %}">Home</a>
-            {% elif "student_update_form.html" in template %}
-              <a class="nav-link" href="{% url 'students:students_all' %}">Home</a>
-            {% endif %}
+          {% if "students/login_form.html" not in template %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Grade 8
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="{% url 'students:students_all' "8A" %}">8A</a>
+              <a class="dropdown-item" href="{% url 'students:students_all' "8B" %}">8B</a>
+              <a class="dropdown-item" href="{% url 'students:students_all' "8C" %}">8C</a>
+              <a class="dropdown-item" href="{% url 'students:students_all' "8A" %}">8J</a>
+              <a class="dropdown-item" href="{% url 'students:students_all' "8B" %}">8L</a>
+              <a class="dropdown-item" href="{% url 'students:students_all' "8C" %}">8M</a>
+            </div>
           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Grade 9
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="{% url 'students:students_all' "9A" %}">9A</a>
+              <a class="dropdown-item" href="{% url 'students:students_all' "9B" %}">9B</a>
+              <a class="dropdown-item" href="{% url 'students:students_all' "9C" %}">9C</a>
+              <a class="dropdown-item" href="{% url 'students:students_all' "9A" %}">9J</a>
+              <a class="dropdown-item" href="{% url 'students:students_all' "9B" %}">9L</a>
+              <a class="dropdown-item" href="{% url 'students:students_all' "9C" %}">9M</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Grade 10
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="{% url 'students:students_all' "10A" %}">10A</a>
+              <a class="dropdown-item" href="{% url 'students:students_all' "10B" %}">10B</a>
+              <a class="dropdown-item" href="{% url 'students:students_all' "10C" %}">10C</a>
+              <a class="dropdown-item" href="{% url 'students:students_all' "10A" %}">10J</a>
+              <a class="dropdown-item" href="{% url 'students:students_all' "10B" %}">10L</a>
+              <a class="dropdown-item" href="{% url 'students:students_all' "10C" %}">10M</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Grade 11
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="{% url 'students:students_all' "11A" %}">11A</a>
+              <a class="dropdown-item" href="{% url 'students:students_all' "11B" %}">11B</a>
+              <a class="dropdown-item" href="{% url 'students:students_all' "11C" %}">11C</a>
+              <a class="dropdown-item" href="{% url 'students:students_all' "11A" %}">11J</a>
+              <a class="dropdown-item" href="{% url 'students:students_all' "11B" %}">11L</a>
+              <a class="dropdown-item" href="{% url 'students:students_all' "11C" %}">11M</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Grade 12
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="{% url 'students:students_all' "12A" %}">12A</a>
+              <a class="dropdown-item" href="{% url 'students:students_all' "12B" %}">12B</a>
+              <a class="dropdown-item" href="{% url 'students:students_all' "12C" %}">12C</a>
+              <a class="dropdown-item" href="{% url 'students:students_all' "12A" %}">12J</a>
+              <a class="dropdown-item" href="{% url 'students:students_all' "12B" %}">12L</a>
+              <a class="dropdown-item" href="{% url 'students:students_all' "12C" %}">12M</a>
+            </div>
+          </li>
+          {% endif %}
           {% if "students/sport_form.html" in template %}
           <li class="nav-item">
             <a class="nav-link" href="javascript:history.back()">Back to Details</a>
@@ -86,10 +145,23 @@
           {% endif %}
         </ul>
         <span class="navbar-text">
-          {% if username %}
-            <a href="{% url 'students:logout_user' %}">Logout</a>
+          {% if "profile_all.html" in template %}
+            <a class="nav-link" href="{% url 'students:create_student' %}">Add Student</a>
+          {% elif "student_create_form.html" in template %}
+            <a class="nav-link" href="{% url 'students:students_all' "8A" %}">Home</a>
+          {% elif "profile_details.html" in template %}
+            <a class="nav-link" href="{% url 'students:students_all' "8A" %}">Home</a>
+          {% elif "students/sport_form.html" in template %}
+            <a class="nav-link" href="{% url 'students:students_all' "8A" %}">Home</a>
+          {% elif "student_update_form.html" in template %}
+            <a class="nav-link" href="{% url 'students:students_all' "8A" %}">Home</a>
           {% endif %}
         </span>
+        {% if username %}
+        <form class="form-inline" action="{% url 'students:student_search' %}" method="GET">
+          <input class="form-control mr-sm-2 my-sm-0 form-rounded" type="text" name="q" value="{{ request.GET.q }}" placeholder="search..">
+        </form>
+        {% endif %}
       </div>
     </nav>
     {% block content %}
